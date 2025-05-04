@@ -44,3 +44,13 @@ class SaveExam_schema(BaseModel):
     examen: list[Question]
     tema: str
 
+class Answer_schema(BaseModel): 
+    pregunta: str
+    respuesta: str
+
+class SaveAnswers_schema(BaseModel):
+    exam_id: uuid.UUID
+    student_id: uuid.UUID
+    score: float
+    answers: List[Answer_schema]
+

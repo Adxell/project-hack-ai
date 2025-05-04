@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from setup.config import settings
 
 #routers
-from api.routers import user_router, agent_router, class_router
+from api.routers import user_router, agent_router, class_router, exam_router
 
 from datetime import datetime
 
@@ -13,6 +13,12 @@ tags_metadata = [
     },
     {
         "name": "Agent Module",
+    },
+    {
+        "name": "Course Module",
+    },
+    {
+        "name": "Exam Module",
     },
 ]
 
@@ -42,7 +48,9 @@ app.add_middleware(
 
 app.include_router(user_router.router, tags=['User Module'], prefix=f'/{settings.path_api}/user')
 app.include_router(agent_router.router, tags=['Agent Module'], prefix=f'/{settings.path_api}/agent')
-app.include_router(class_router.router, tags=['Agent Module'], prefix=f'/{settings.path_api}/class')
+app.include_router(class_router.router, tags=['Course Module'], prefix=f'/{settings.path_api}/course')
+app.include_router(exam_router.router, tags=['Exam Module'], prefix=f'/{settings.path_api}/exam')
+
 
 @app.get("/")
 def get():

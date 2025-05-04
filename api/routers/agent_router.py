@@ -68,7 +68,6 @@ async def create(request: Request,
         new_exam = Exam(topic = payload.tema, 
                     questions = questions,
                     professor_id = id_user)
-        print(new_exam)
         db.add(new_exam)
         db.commit()
 

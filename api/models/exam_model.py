@@ -18,8 +18,8 @@ class Exam(Base):
 class ExamResult(Base):
     __tablename__ = 'exam_results'
     id = Column(PGUUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    exam_id = Column(PGUUID(as_uuid=True), ForeignKey('exams.id', ondelete='CASCADE'), nullable=False)
-    student_id = Column(PGUUID(as_uuid=True), ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    exam_id = Column(PGUUID(as_uuid=True), nullable=False)
+    student_id = Column(PGUUID(as_uuid=True), nullable=False)
     score = Column(Numeric(5,2), nullable=False)
     answers = Column(JSON)
     taken_at = Column(DateTime(timezone=True), server_default=func.now())
