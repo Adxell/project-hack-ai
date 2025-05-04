@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Dict, Any
 # import pytz
 #sqlalchemy
 # from sqlalchemy.orm import Session
@@ -7,6 +8,8 @@ from datetime import datetime
 from fastapi import APIRouter, Request, status, HTTPException, Depends
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+#verify 
+from security.security import get_current_user
 #sqlachemy 
 from sqlalchemy.orm import Session
 #Schemas
@@ -44,6 +47,34 @@ async def create(request: Request,
                                                           "email": user_data.email, 
                                                           "role": user_data.role
                                                       }, 
+                                                      "success": True}), 
+                                                      status_code=status.HTTP_201_CREATED) 
+    except HTTPException as httpe: 
+        return JSONResponse(content=jsonable_encoder({"status": httpe.status_code,  
+                                                      "message": httpe.detail, 
+                                                      "success": False, 
+                                                      "time": datetime.now(), 
+                                                      "path": request.url.path}), 
+                                                      status_code=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return JSONResponse(content=jsonable_encoder({"status": status.HTTP_500_INTERNAL_SERVER_ERROR, 
+                                                      "message": "Error Interno", 
+                                                      "error": str(e.args), 
+                                                      "success": False, 
+                                                      "time": datetime.now(), 
+                                                      "path": request.url.path}), 
+                                                      status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@router.post('/verify_token', summary="Verify token") 
+async def create(request: Request, 
+                 db: Session = Depends(get_db), 
+                 data_login: Dict[str, Any] = Depends(get_current_user)):
+    try:
+
+        
+        return JSONResponse(content=jsonable_encoder({"status": status.HTTP_201_CREATED, 
+                                                      "data": True, 
                                                       "success": True}), 
                                                       status_code=status.HTTP_201_CREATED) 
     except HTTPException as httpe: 
