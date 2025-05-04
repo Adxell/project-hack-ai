@@ -19,3 +19,12 @@ class CreateClass_schema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+
+class EnrollClass_schema(BaseModel):
+    """Esquema para la creación de usuario solo con email."""
+    id: uuid.UUID
+
+    class Config:
+        orm_mode = True

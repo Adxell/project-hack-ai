@@ -39,7 +39,11 @@ async def create(request: Request,
                                      "role": user_data.role })
         
         return JSONResponse(content=jsonable_encoder({"status": status.HTTP_201_CREATED, 
-                                                      "data": token, 
+                                                      "data": {
+                                                          "token": token, 
+                                                          "email": user_data.email, 
+                                                          "role": user_data.role
+                                                      }, 
                                                       "success": True}), 
                                                       status_code=status.HTTP_201_CREATED) 
     except HTTPException as httpe: 
@@ -75,7 +79,11 @@ async def post(request: Request,
                                      "role": old_user.role })
         
         return JSONResponse(content=jsonable_encoder({"status": status.HTTP_201_CREATED, 
-                                                      "data": token, 
+                                                      "data": {
+                                                          "token": token, 
+                                                          "email": old_user.email, 
+                                                          "role": old_user.role
+                                                      }, 
                                                       "success": True}), 
                                                       status_code=status.HTTP_201_CREATED) 
     except HTTPException as httpe: 

@@ -11,4 +11,3 @@ class User(Base):
     id = Column(PGUUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String(255), nullable=False)
     role = Column(String(50), nullable=False)
-
