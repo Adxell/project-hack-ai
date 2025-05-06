@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-DATABASE_URL = f"postgresql://postgres.waetvdwjghlqqtazzygi:profesor_ai@aws-0-us-west-1.pooler.supabase.com:6543/postgres"
+DATABASE_URL = f""
 
 engine = create_engine(
     DATABASE_URL,
